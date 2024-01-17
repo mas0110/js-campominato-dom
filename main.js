@@ -2,7 +2,7 @@ let grigliahtml = document.querySelector(".griglia");
  
 let selectLevel = document.getElementById("select")
 
-document.getElementById("play").addEventListener("click", function() {
+document.getElementById("play").addEventListener("click", function play() {
 
     grigliahtml.innerHTML = ""
 
@@ -20,16 +20,41 @@ document.getElementById("play").addEventListener("click", function() {
 
         box.innerText = i
 
-        box.addEventListener("click", function(){
+        box.addEventListener("click", function() {
+            
+            this.classList.toggle("active");
+            
+            console.log(i);
+            
+            if (arraybombe.includes(i)) {
+                this.classList.add("bomb");
+                setTimeout(function() {
+                    alert("Hai beccato una bomba... GAME OVER")
+                }, 500); 
+                setTimeout(function() {
+                    location.reload();
+                }, 1000);
+            }
+        });
+        
+        let arraybombe = [ ]
 
-            this.classList.toggle("active")
+        for (let x = 0; x < 16; x++){
 
-            console.log(i)
+            let numerirandom = Math.floor(Math.random() * 100);
+            
+            arraybombe.push(numerirandom)
 
+            console.log(arraybombe)
+
+            if (!arraybombe.includes(numerirandom)) {
+                arraybombe.push(numerirandom);
+            }
+            
         }
-        )
+        
     }
-
+    
 
 }
 );

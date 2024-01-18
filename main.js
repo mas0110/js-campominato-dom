@@ -4,6 +4,8 @@ let selectLevel = document.getElementById("select")
 
 document.getElementById("play").addEventListener("click", function play() {
 
+    punteggio = 0
+
     grigliahtml.innerHTML = ""
 
     for (let i = 1; i <= select.value; i++) {
@@ -22,19 +24,28 @@ document.getElementById("play").addEventListener("click", function play() {
 
         box.addEventListener("click", function() {
             
-            this.classList.toggle("active");
-            
             console.log(i);
+
+            punteggio = punteggio + 1
             
             if (arraybombe.includes(i)) {
                 this.classList.add("bomb");
                 setTimeout(function() {
-                    alert("Hai beccato una bomba... GAME OVER")
+                    alert("Hai calpestato una bomba... GAME OVER")
                 }, 500); 
+
                 setTimeout(function() {
-                    location.reload();
-                }, 1000);
+                    alert("Il tuo punteggio è di: " + punteggio)
+                }, 600); 
+
+                setTimeout(function() {
+                    grigliahtml.innerHTML = ""
+                }, 700);
+
+            }else {
+                this.classList.toggle("active");
             }
+
         });
         
         let arraybombe = [ ]
@@ -42,10 +53,8 @@ document.getElementById("play").addEventListener("click", function play() {
         for (let x = 0; x < 16; x++){
 
             let numerirandom = Math.floor(Math.random() * 100);
-            
-            arraybombe.push(numerirandom)
 
-            console.log(arraybombe)
+            arraybombe.push(numerirandom)
 
             if (!arraybombe.includes(numerirandom)) {
                 arraybombe.push(numerirandom);
